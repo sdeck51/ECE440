@@ -8,6 +8,7 @@ while True:
     conection,  addr = server.accept()
     try:
 		print 'Working'
+		conection.send("HTTP/1.1 200 OK\r\n")
 		message = conection.recv(1024)
 		print message
 		filename = message.split()[1] #cuts off the '/' in the request page
