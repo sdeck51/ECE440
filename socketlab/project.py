@@ -2,10 +2,10 @@ from socket import *
 server = socket(AF_INET, SOCK_STREAM)
 port = 12030
 server.bind((gethostname(), port))
-server.listen(5)
+server.listen(1)
 while True:
     print 'Ready to serve'
-    server.listen(5)
+    server.listen(1)
     conection,  addr = server.accept()
     try:
 		print 'Working'
@@ -15,7 +15,6 @@ while True:
 		outputdata = f.read()
 		for i in range(0, len(outputdata)):
 			conection.send(outputdata[i])
-		f.close()
 		conection.close()
     except IOError:
 		print 'Something happened kinda badly'
