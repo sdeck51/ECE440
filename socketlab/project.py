@@ -5,20 +5,21 @@ server.bind((gethostname(), port))
 server.listen(5)
 while True:
     print 'Ready to serve'
+    server.listen(5)
     conection,  addr = server.accept()
     try:
-        print 'Working'
-        message = conection.recv(1024)
-        filename = message.split()[1] #cuts off the '/' in the request page
-        f = open(filename[1:])
-        outputdata = f.read()
-        for i in range(0, len(outputdata)):
+		print 'Working'
+		message = conection.recv(1024)
+		filename = message.split()[1] #cuts off the '/' in the request page
+		f = open(filename[1:])
+		outputdata = f.read()
+		for i in range(0, len(outputdata)):
 			conection.send(outputdata[i])
-        f.close()
-        conection.close()
+		f.close()
+		conection.close()
     except IOError:
-        print 'Something happened kinda badly'
-        server.close()
+		print 'Something happened kinda badly'
+		conection.close()
     except KeyboardInterrupt:
         server.close()
         conection.close()
