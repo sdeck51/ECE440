@@ -9,7 +9,7 @@ while True:
     conection,  addr = server.accept()
     try:
         print 'Working'
-        message = 'OK HellowWorld.html'
+        message = conection.recv(1024)
         filename = message.split()[1]
         f = open(filename[1:])
         close(filename[1:])
@@ -24,3 +24,4 @@ while True:
 
 
 #threads set to daemon so no stdin capture
+#in browser open page with '"computer_name":12030'
