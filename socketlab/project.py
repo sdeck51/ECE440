@@ -1,5 +1,4 @@
 from socket import *
-quit = "q"
 server = socket(AF_INET, SOCK_STREAM)
 port = 12030
 server.bind((gethostname(), port))
@@ -10,16 +9,19 @@ while True:
     try:
         print 'Working'
         message = conection.recv(1024)
-        filename = message.split()[1]
+        filename = message.split()[1] #cuts off the '/' in the request page
         f = open(filename[1:])
-        close(filename[1:])
-        print filename
+        outputdata = f.read()
+        for i in range(0, len(outputdata)):
+			conection.send(outputdata[i])
+        f.close()
         conection.close()
     except IOError:
         print 'Something happened kinda badly'
-        connection.close()
         server.close()
     except KeyboardInterrupt:
+        server.close()
+        conection.close()
         break;
 
 
