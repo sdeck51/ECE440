@@ -8,8 +8,8 @@ while True:
     conection,  addr = server.accept()
     try:
 		print 'Working'
-		print message
 		message = conection.recv(1024)
+		print message
 		filename = message.split()[1] #cuts off the '/' in the request page
 		f = open(filename[1:])
 		outputdata = f.read()
