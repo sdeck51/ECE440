@@ -8,19 +8,17 @@ while True:
     conection,  addr = server.accept()
     try:
 		print 'Working'
+		print message
 		message = conection.recv(1024)
 		filename = message.split()[1] #cuts off the '/' in the request page
 		f = open(filename[1:])
 		outputdata = f.read()
-		print outputdata
-		conection.send('HTTP/1.1 200 OK\r\n')
-		conection.send("Content-Type:text/html\r\n")
 		for i in range(0, len(outputdata)):
 			conection.send(outputdata[i])
 		conection.close()
     except IOError:
 		print 'IO ERROR'
-		print outputdata
+		print message
 		conection.close()
     except KeyboardInterrupt:
         server.close()
