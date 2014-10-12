@@ -5,7 +5,6 @@ server.bind((gethostname(), port))
 server.listen(1)
 while True:
     print 'Ready to serve'
-    server.listen(1)
     conection,  addr = server.accept()
     try:
 		print 'Working'
@@ -13,11 +12,15 @@ while True:
 		filename = message.split()[1] #cuts off the '/' in the request page
 		f = open(filename[1:])
 		outputdata = f.read()
+		print outputdata
+		conection.send('HTTP/1.1 200 OK\r\n')
+		conection.send("Content-Type:text/html\r\n")
 		for i in range(0, len(outputdata)):
 			conection.send(outputdata[i])
 		conection.close()
     except IOError:
-		print 'Something happened kinda badly'
+		print 'IO ERROR'
+		print outputdata
 		conection.close()
     except KeyboardInterrupt:
         server.close()
