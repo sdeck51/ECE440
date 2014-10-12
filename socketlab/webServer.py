@@ -18,6 +18,7 @@ while True:
 		conection.close()
     except IOError:
 		print 'IO ERROR'
+		conection.send("404 NOT FOUND")
 		print message
 		conection.close()
     except KeyboardInterrupt:
