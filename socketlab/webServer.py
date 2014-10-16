@@ -5,26 +5,30 @@ server.bind((gethostname(), port))
 server.listen(1)
 while True:
     print 'Ready to serve'
-    conection,  addr = server.accept()
+    connection,  addr = server.accept()
     try:
 		print 'Working'
-		conection.send("HTTP /1.1 200 OK\r\n")
-		message = conection.recv(1024)
+		print 'Working'
+		connection.send('''HTTP/1.1 200 OK
+Content-Type: text/html
+
+''')
+		message = connection.recv(1024)
 		print message
 		filename = message.split()[1] #cuts off the '/' in the request page
 		f = open(filename[1:])
 		outputdata = f.read()
 		for i in range(0, len(outputdata)):
-			conection.send(outputdata[i])
-		conection.close()
+			connection.send(outputdata[i])
+		connection.close()
     except IOError:
 		print 'IO ERROR'
-		conection.send("404 NOT FOUND")
+		connection.send("404 NOT FOUND")
 		print message
-		conection.close()
+		connection.close()
     except KeyboardInterrupt:
         server.close()
-        conection.close()
+        connection.close()
         break;
 
 
