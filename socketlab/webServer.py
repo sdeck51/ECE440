@@ -8,10 +8,7 @@ while True:
     connection,  addr = server.accept()
     try:
 		print 'Working'
-		connection.send('''HTTP/1.1 200 OK
-Content-Type: text/html
-
-''')
+		connection.send("HTTP/1.1 200 OK\r\n\r\n")
 		message = connection.recv(1024)
 		print message
 		filename = message.split()[1] #cuts off the '/' in the request page
